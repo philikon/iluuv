@@ -86,7 +86,7 @@ function WikipediaSearch () {
         jQuery.each(data.query.search, function (i) {
             // 'this' is the current item in the sequence
             var node = renderItem({what: this.title, when: '', who: ''},
-                                  'result-template');
+                                  'result-template', 'result');
             node.appendTo('#results');
         });
     }
@@ -154,11 +154,11 @@ function fetchArticleInfo (title, callback) {
  * Render a luuv item based on a template that's available in the DOM.
  * Not all placeholders will be present in all templates, but that's ok.
  */
-function renderItem(item, template_id) {
+function renderItem(item, template_id, idprefix) {
     var id = titleToId(item.what);
-    var node = jQuery('#' + template_id).clone(); // TODO escape id
+    var node = jQuery('#' + template_id).clone();
     var url = "http://en.wikipedia.org/wiki/" + id;
-    node.attr('id', 'luuv-' + id);
+    node.attr('id', idprefix + '-' + id);
     node.find('.luuv-title').text(item.what).click(function (event) {
         event.preventDefault();
         node.find('.item-secondrow').slideToggle();
@@ -203,7 +203,7 @@ function doLuuv (what) {
             return;
         }
 
-        var node = renderItem(data.new_luuv, 'my-luuv-template');
+        var node = renderItem(data.new_luuv, 'my-luuv-template', 'luuv');
         node.prependTo('#luuvs');
     }
 
@@ -223,7 +223,10 @@ function doUnluuv (what) {
             return;
         }
 
-        var node = jQuery('#luuv-' + titleToId(data.del_luuv.what));
+        // The title might contain parens etc. and jQuery id selectors
+        // would have to be escaped, so let's just use getElementById here.
+        var node = jQuery(document.getElementById(
+            'luuv-' + titleToId(data.del_luuv.what)));
         node.slideUp('slow', function () {node.remove();});
     }
 
@@ -251,7 +254,7 @@ function getMyLuuvs() {
         jQuery('#luuvs').empty();
         jQuery.each(data.luuvs, function (i) {
             // 'this' is the current item in the sequence
-            var node = renderItem(this, 'my-luuv-template');
+            var node = renderItem(this, 'my-luuv-template', 'luuv');
             node.appendTo('#luuvs');
         });
     }
@@ -279,7 +282,7 @@ function getLatestLuuvs() {
         jQuery('#luuvs').empty();
         jQuery.each(data.luuvs, function (i) {
             // 'this' is the current item in the sequence
-            var node = renderItem(this, 'latest-luuv-template');
+            var node = renderItem(this, 'latest-luuv-template', 'luuv');
             node.appendTo('#luuvs');
         });
     }
@@ -311,7 +314,7 @@ function getUserLuuvs(who) {
         jQuery('#luuvs').empty();
         jQuery.each(data.luuvs, function (i) {
             // 'this' is the current item in the sequence
-            var node = renderItem(this, 'user-luuv-template');
+            var node = renderItem(this, 'user-luuv-template', 'luuv');
             node.appendTo('#luuvs');
         });
     }
