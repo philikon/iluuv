@@ -34,12 +34,12 @@ class Application(object):
 
     # Using Routes here is probably a bit of an overkill
     map = routes.Mapper()
-    map.connect('index', '/', method='index')
-    map.connect('view', '/get_my_luuvs', method='get_my_luuvs')
-    map.connect('view', '/get_latest_luuvs', method='get_latest_luuvs')
-    map.connect('view', '/get_user_luuvs', method='get_user_luuvs')
-    map.connect('view', '/do_luuv', method='do_luuv')
-    map.connect('view', '/do_unluuv', method='do_unluuv')
+    map.connect('/', method='index')
+    map.connect('/get_my_luuvs', method='get_my_luuvs')
+    map.connect('/get_latest_luuvs', method='get_latest_luuvs')
+    map.connect('/get_user_luuvs', method='get_user_luuvs')
+    map.connect('/do_luuv', method='do_luuv')
+    map.connect('/do_unluuv', method='do_unluuv')
 
     @webob.dec.wsgify
     def __call__(self, request):
