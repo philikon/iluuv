@@ -1,0 +1,133 @@
+body {
+    text-align: center;
+    font-family: helvetica;
+    background-color: white;
+}
+
+#content {
+    width: 700px;
+    text-align: left;
+    position: relative;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #bbbbbb;
+    background-color: #ffd0e0;
+
+    /* Look ma, rounded corners! */
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+h1 {
+    margin: 0;
+}
+
+nav {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    list-style: none outside none;
+}
+
+#nav > li {
+    position: relative;
+    display: inline;
+}
+
+.nav-selected,
+#search-box {
+    padding: 5px;
+    border: 1px solid #cccccc;
+    background-color: #ffedf3;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+#search-box {
+    padding: 10px;
+}
+
+a:link, a:visited {
+    color: #4e1880;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+#search {
+    display: none;
+}
+
+#searching {
+    display: none;
+}
+
+#template-container {
+    display: none;
+}
+
+#results,
+#luuvs {
+    padding: 0;
+    margin: 0;
+}
+
+/* Gah, the whole fixed height and absolute position business messes
+   up jQuery's slide animations. :( */
+
+.result-item,
+.luuv-item {
+    padding: 2px 0 2px 0;
+    margin: 5px 0 5px 0;
+    list-style: none outside none;
+    background-color: #ffedf3;
+    border: 1px solid #cccccc;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+.item-firstrow {
+    height: 48px;
+}
+/* Tell jQuery how to display <details> */
+details {
+    display: block;
+}
+.item-secondrow {
+    display: none;
+    font-size: 80%;
+    margin: 0 50px 5px 65px;
+}
+
+.luuv-img-container {
+    position: absolute;
+    left: 30px;
+    width: 48px;
+    height: 48px;
+    text-align: center;
+    background-color: white;
+    line-height: 48px;
+}
+
+.luuv-descr-container {
+    position: absolute;
+    margin-left: 65px;
+    margin-right: 30px;
+    vertical-align: middle;
+    height: 48px;
+    line-height: 48px;
+    overflow: hidden;
+}
+
+.luuv-img {
+    max-height: 48px;
+    max-width: 48px;
+    /* TODO: align and valign center */
+}
+
+.luuv-button-container {
+    position: absolute;
+    float: right;
+    right: 30px;
+    line-height: 48px;
+}

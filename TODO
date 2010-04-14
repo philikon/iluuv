@@ -1,0 +1,18 @@
+TODO:
+
+* Batching to scale long search results (auto-load on scrolling down)
+
+* There are several situations where it would make sense to abort an
+  AJAX request (e.g. switching views prematurely).
+
+Enhancement Ideas:
+
+* Allow login via OpenID
+
+* Automatic status msgs on twitter
+
+* Most luuved items (easy)
+
+* Users who luuved this also luuved ABC, XYZ, ... (harder)
+
+* Here are some users who luuv similar things (hard)

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>I LUUV</title>
+  <link rel="stylesheet" type="text/css" href="{{app_url}}/static/luuv.css" />
+  <!-- This will be ignored on Firefox thanks to http://bugzil.la/420605 -->
+  <link rel="shortcut icon" type="image/x-icon"
+        href="{{app_url}}/static/heart.ico" />
+</head>
+<body>
+<div id="content">
+  <header>  <!-- HTML5, baby! -->
+    <h1><a href="{{app_url}}">I LUUV</a></h1>
+
+    <nav>
+      <ul id="nav">
+        <li id="nav-home"><a href="#home">Home</a></li>
+        <li id="nav-latest"><a href="#latest">Latest</a></li>
+      </ul>
+    </nav>
+
+    {% if user_email %}
+    <p>You're logged in as {{user_email}}.
+    <a href="{{logout_url}}">Logout</a></p>
+    {% else %}
+    <p>Want to luuv something? Why don't you
+    <a href="{{login_url}}">log in with your Google account</a>?</p>
+    {% endif %}
+  </header>
+
+  <div id="search">
+    <div id="search-box">
+      What do you luuv? <input id="query" type="text" />
+      <button id="search-clear-button">Clear</button>
+    </div>
+
+    <ul id="results">
+    </ul>
+  </div>
+
+  <div id="luuv-things">
+    <h2 id="luuv-things-heading">Things you luuv</h2>
+
+    <ul id="luuvs">
+    </ul>
+  </div>
+
+
+  <!-- (Invisible) templates that are cloned by the AJAX code, infused
+       with values and event handlers and then inserted somewhere
+       above.  Turns out there's quite a lot of duplication here since
+       they're all very similar except minor details. :( -->
+
+  <ul id="template-container">
+    <li id="loading-template" class="luuv-item">
+      <div class="item-firstrow">
+        <div class="luuv-img-container">
+          <img class="luuv-img" src="{{app_url}}/static/throbber.gif" />
+        </div>
+        <div class="luuv-descr-container">
+          Loading...
+        </div>
+      </div>
+    </li>
+
+    <li id="searching-template" class="result-item">
+      <div class="item-firstrow">
+        <div class="luuv-img-container">
+          <img class="luuv-img" src="{{app_url}}/static/throbber.gif" />
+        </div>
+        <div class="luuv-descr-container">
+          Searching Wikipedia for <span class="search-term">searchterm</span>.
+        </div>
+      </div>
+    </li>
+
+    <li id="result-template" class="result-item">
+      <div class="item-firstrow">
+        <div class="luuv-img-container">
+          <img class="luuv-img" src="{{app_url}}/static/throbber.gif" />
+        </div>
+        <div class="luuv-descr-container">
+          <a href="" class="luuv-title">Title</a>
+        </div>
+        <div class="luuv-button-container">
+          <button class="luuv-button">LUUV</button>
+        </div>
+      </div>
+      <details class="item-secondrow">  <!-- HTML5, baby! -->
+        <summary class="luuv-summary">Loading summary...</summary>
+        <a href="" class="luuv-morelink">More on Wikipedia...</a>
+      </details>
+    </li>
+
+    <li id="my-luuv-template" class="luuv-item">
+      <div class="item-firstrow">
+        <div class="luuv-img-container">
+          <img class="luuv-img" src="{{app_url}}/static/throbber.gif" />
+        </div>
+        <div class="luuv-descr-container">
+          <a href="" class="luuv-title">Title</a>
+          <time class="luuv-when">xyz ago</time>  <!-- HTML5, baby! -->
+        </div>
+        <div class="luuv-button-container">
+          <button class="unluuv-button">UNLUUV</button>
+        </div>
+      </div>
+      <details class="item-secondrow">
+        <summary class="luuv-summary">Loading summary...</summary>
+        <a href="" class="luuv-morelink">More on Wikipedia...</a>
+      </details>
+    </li>
+
+    <li id="user-luuv-template" class="luuv-item">
+      <div class="item-firstrow">
+        <div class="luuv-img-container">
+          <img class="luuv-img" src="{{app_url}}/static/throbber.gif" />
+        </div>
+        <div class="luuv-descr-container">
+          <a href="" class="luuv-title">Title</a>
+          <time class="luuv-when">xyz ago</time>
+        </div>
+      </div>
+      <details class="item-secondrow">
+        <summary class="luuv-summary">Loading summary...</summary>
+        <a href="" class="luuv-morelink">More on Wikipedia...</a>
+      </details>
+    </li>
+
+    <li id="latest-luuv-template" class="luuv-item">
+      <div class="item-firstrow">
+        <div class="luuv-img-container">
+          <img class="luuv-img" src="{{app_url}}/static/throbber.gif" />
+        </div>
+        <div class="luuv-descr-container">
+          <a href="" class="luuv-title">Title</a>
+          was luuved by
+          <span class="luuv-user">User</span>
+          <time class="luuv-when">xyz ago</time>
+        </div>
+      </div>
+      <details class="item-secondrow">
+        <summary class="luuv-summary">Loading summary...</summary>
+        <a href="" class="luuv-morelink">More on Wikipedia...</a>
+      </details>
+    </li>
+  </ul>
+</div>
+
+<script src="{{app_url}}/static/jquery.js"></script>
+<script src="{{app_url}}/static/jquery.ba-hashchange.js"></script>
+<script src="{{app_url}}/static/jquery.timeago.js"></script>
+<script src="{{app_url}}/static/luuv.js"></script>
+{% if user_email %}
+<script>
+  jQuery(document).ready(WikipediaSearch);
+  if (!window.location.hash) {
+      window.location.hash = 'home';
+  }
+</script>
+{% else %}
+<script>
+  jQuery('#nav-home').hide();
+  if (!window.location.hash) {
+      window.location.hash = 'latest';
+  }
+</script>
+{% endif %}
+
+</body>
+</html>

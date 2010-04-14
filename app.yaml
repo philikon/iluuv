@@ -1,0 +1,15 @@
+application: i-luuv
+version: 2
+runtime: python
+api_version: 1
+
+handlers:
+- url: /favicon.ico
+  static_files: static/heart.ico
+  upload: static/heart.ico
+
+- url: /static
+  static_dir: static
+
+- url: /.*
+  script: app.py
