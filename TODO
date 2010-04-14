@@ -7,6 +7,9 @@ TODO:
 
 Enhancement Ideas:
 
+* Cache icons in localStorage (render them down to 48x48 using canvas
+  and store the canvas's data URL)
+
 * Allow login via OpenID
 
 * Automatic status msgs on twitter
