@@ -1,6 +1,8 @@
 Toy app for Google's App Engine.  It makes use of
 
-* WebOb and Routes (though not really necessary)
+* WebOb and Routes (though the latter is not really necessary)
+
+* jQuery
 
 * JSON (to query itself) and JSONP (to query Wikipedia)
 
