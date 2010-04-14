@@ -1,0 +1,11 @@
+Toy app for Google's App Engine.  It makes use of
+
+* WebOb and Routes (though not really necessary)
+
+* JSON (to query itself) and JSONP (to query Wikipedia)
+
+* HTML 5 localStorage
+
+* some new HTML 5 and CSS features
+
+See http://i-luuv.appspot.com

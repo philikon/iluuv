@@ -29,6 +29,7 @@ class Luuv(db.Model):
     type = db.IntegerProperty() # 0 = LUUV
     when = db.DateTimeProperty(auto_now_add=True)
 
+
 class Application(object):
 
     # Using Routes here is probably a bit of an overkill
